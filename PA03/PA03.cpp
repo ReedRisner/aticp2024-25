@@ -1,23 +1,40 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <sstream>
+
 
 using namespace std;
 
 int main(int argc, char const *argv[]) {
 
-    if(argc == 1){
-        cerr <<"Only One Argument"<<endl;
+struct Student {
+    string firstname;
+    string lastname;
+    int score;
+    char grade;
+};
+
+vector<student>;
+
+    if(argc != 3){
+        cerr <<"Not enough arguments"<<endl;
         exit(1);
     } 
 
-    string fileName = argv[1];
-    ifstream infile (fileName);
+    string inputName = argv[1];
+    string outputName = argv[2];
+    ifstream infile (inputName);
+    ofstream outfile (outputName);
     string line;
     
-    if (infile.good() == false) {
-        cerr << "Unable to open the file named " << fileName;
+    if (infile.good() == false || outfile.good() == false) {
+        cerr << "Unable to open the file named " << inputName;
         exit (1);
     }
+
+
+
+
 
 }
