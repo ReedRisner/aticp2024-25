@@ -6,12 +6,19 @@
 
 using namespace std;
 
-char calculateGrade(int score) {
-    if (score >= 90) return 'A';
-    if (score >= 80) return 'B';
-    if (score >= 70) return 'C';
-    if (score >= 60) return 'D';
-    return 'F';
+void getData(ifstream& inputFile, vector<string>& lines) {
+    string line; 
+    
+     while (getline(inputFile, line)) {
+        lines.push_back(line);
+    }
+}
+string calculateGrade(int score) {
+    if (score >= 90) return "A";
+    if (score >= 80) return "B";
+    if (score >= 70) return "C";
+    if (score >= 60) return "D";
+    return "F";
 }
 void split(const string& str, const string& delim, vector<string>& parts) {
   size_t start, end = 0;
@@ -29,6 +36,20 @@ void split(const string& str, const string& delim, vector<string>& parts) {
     }
   }
 }  
+void highestScore (vector<int> grades) {
+    int highestScore = grades[0];
+    for (unsigned int i = 0; i< grades.size(); i++) {
+        if (grades[i]>highestScore) {
+            highestScore = grades[i];
+        }
+    }
+    cout<<highestScore<<endl;
+}
+void writeData(vector<string> lines, vector<string> grade, ofstream& outputFile) {
+    for (unsigned int i = 0; i < lines.size(); i++) {
+        outputFile<<lines[i]<<" "<<grade[i]<<endl;
+    }
+}
 int main(int argc, char const *argv[]) {
 
 
@@ -53,10 +74,8 @@ string line;
 }
 
 
-vector <int> gradeBook;
-string line; 
-getData(ifstream); {
-    while(infile,line) {
-        split(line, " ", getline); 
-    }
-}
+
+
+
+
+
