@@ -45,31 +45,34 @@ void highestScore (vector<int> grades) {
     }
     cout<<highestScore<<endl;
 }
-void writeData(vector<string> lines, vector<string> grade, ofstream& outputFile) {
+void writeData(vector<string> lines, vector<string> grade, ofstream& outfile) {
     for (unsigned int i = 0; i < lines.size(); i++) {
-        outputFile<<lines[i]<<" "<<grade[i]<<endl;
+        outfile<<lines[i]<<" "<<grade[i]<<endl;
     }
 }
 int main(int argc, char const *argv[]) {
- 
-if(argc < 2){
-        cerr <<"Not enough arguments"<<endl;
-        exit(1);
-    }
 
-string inputName = argv[1];
-string outputName = argv[2];
-ifstream infile (inputName);
-ofstream outfile (outputName);   
-string input;
-string output;
 vector<string> lines;
 vector<string> parts;
 vector<int> percentScores;
-vector<string> letterGrades;
+vector<string> letterGrades; 
+
+if (argc <= 2 ) {
+        cerr<< "Not Enough Arguments" <<endl;
+        exit(1);
+    }
     
-if (infile.good() == false || outfile.good() == false) {
-        cerr << "Unable to open the file named " << inputName;
+    string inputName = argv[1];
+    string outputName = argv[2];
+    ifstream infile(inputName);
+    
+
+
+
+
+    
+if (infile.good() == false) {
+        cerr << "Unable to open the input file named " << inputName << endl;
         exit (1);
     }
  
@@ -86,6 +89,11 @@ if (infile.good() == false || outfile.good() == false) {
     for (unsigned int i = 0; i< percentScores.size(); i++) {
         string g = calculateGrade(percentScores[i]);
         letterGrades.push_back(g);
+    }
+    ofstream outfile (outputName);   
+    if (!outfile.is_open()) {
+        std::cerr << "Unable to open output file named  " << inputName << std::endl;
+        exit(1); 
     }
    
     writeData(lines, letterGrades, outfile);
