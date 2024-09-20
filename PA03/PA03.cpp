@@ -51,25 +51,45 @@ void writeData(vector<string> lines, vector<string> grade, ofstream& outputFile)
     }
 }
 int main(int argc, char const *argv[]) {
-
-
-if(argc != 2){
+ 
+if(argc < 2){
         cerr <<"Not enough arguments"<<endl;
         exit(1);
-    };
+    }
+
 string inputName = argv[1];
 string outputName = argv[2];
 ifstream infile (inputName);
-ofstream outfile (outputName);
-string line;
-   
+ofstream outfile (outputName);   
+string input;
+string output;
+vector<string> lines;
+vector<string> parts;
+vector<int> percentScores;
+vector<string> letterGrades;
     
-     
-    if (infile.good() == false || outfile.good() == false) {
+if (infile.good() == false || outfile.good() == false) {
         cerr << "Unable to open the file named " << inputName;
         exit (1);
     }
-    
+ 
+    getData(infile, lines);
+    for (unsigned int i = 0; i < lines.size(); i++) {
+        split (lines[i], " ", parts);
+    }
+
+    for (unsigned int i = 2; i< parts.size(); i = i+3) {
+        string s = parts[i];
+        int y = stoi(s);
+        percentScores.push_back(y);
+    }
+    for (unsigned int i = 0; i< percentScores.size(); i++) {
+        string g = calculateGrade(percentScores[i]);
+        letterGrades.push_back(g);
+    }
+   
+    writeData(lines, letterGrades, outfile);
+    highestScore(percentScores);
 
 }
 
