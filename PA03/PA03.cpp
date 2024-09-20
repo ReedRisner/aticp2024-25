@@ -31,16 +31,18 @@ void split(const string& str, const string& delim, vector<string>& parts) {
 }  
 int main(int argc, char const *argv[]) {
 
+
+if(argc != 2){
+        cerr <<"Not enough arguments"<<endl;
+        exit(1);
+    };
 string inputName = argv[1];
 string outputName = argv[2];
 ifstream infile (inputName);
 ofstream outfile (outputName);
 string line;
    
-    if(argc != 3){
-        cerr <<"Not enough arguments"<<endl;
-        exit(1);
-    };
+    
      
     if (infile.good() == false || outfile.good() == false) {
         cerr << "Unable to open the file named " << inputName;
@@ -48,4 +50,13 @@ string line;
     }
     
 
+}
+
+
+vector <int> gradeBook;
+string line; 
+getData(ifstream); {
+    while(infile,line) {
+        split(line, " ", getline); 
+    }
 }
