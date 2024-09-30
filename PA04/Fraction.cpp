@@ -17,3 +17,42 @@ int Fraction::getNum() const {
 int Fraction::getDen() const{
     return den;
 }
+ostream &operator <<(ostream &stream, const Fraction &other) {
+
+    stream << other.num << "/" << other.den;
+    return stream;
+
+    }
+
+Fraction Fraction::operator+ (const Fraction& other) const {
+    int newNum = num*other.den+den*other.num;
+    int newDen = den*other.den;
+    return Fraction(newNum, newDen);
+}
+Fraction Fraction::operator- (const Fraction& other) const {
+    int newNum = num*other.den-den*other.num;
+    int newDen = den*other.den;
+    return Fraction(newNum, newDen);
+}
+Fraction Fraction::operator* (const Fraction& other) const {
+    int newNum = num*other.num;
+    int newDen = den*other.den;
+    return Fraction(newNum, newDen);
+}
+Fraction Fraction::operator/ (const Fraction& other) const {
+    int newNum = num*other.den;
+    int newDen = den/other.num;
+    return Fraction(newNum, newDen);
+}
+bool Fraction::operator ==(Fraction &other) const{
+    if (float (num / den) == float(other.num / other.den)) {
+       return(true);  
+    }
+    else {
+        return false;
+    }
+   
+}
+
+
+    
