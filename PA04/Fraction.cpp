@@ -45,7 +45,7 @@ Fraction Fraction::operator/ (const Fraction& other) const {
     return Fraction(newNum, newDen);
 }
 bool Fraction::operator ==(Fraction &other) const{
-    if (float (num / den) == float(other.num / other.den)) {
+    if ((float) num / den == (float) other.num / other.den) {
        return(true);  
     }
     else {
