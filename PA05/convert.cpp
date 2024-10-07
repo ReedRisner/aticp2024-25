@@ -23,9 +23,6 @@ int char2int(char digit)
     if (digit >64 && digit<71) {
         return digit-55;
     }
-    if (digit>96 && digit<103) { 
-        return digit-87;
-    }
     return -1;
 
 }
