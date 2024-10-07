@@ -58,7 +58,7 @@ char int2char(int digit)
 // 2 <= base <= 16
 void int2ascii(int value, int base) {
     if (base == 10) {
-        cout<<value<<endl;
+        cout<<value;
         return;
     }
 
@@ -70,7 +70,7 @@ void int2ascii(int value, int base) {
     }
     for (int i = remains.size()-1; i>=0; i--) {
         int digit  = remains.at(i);
-        std::cout<<int2char(digit)<<endl;
+        std::cout<<int2char(digit);
     }
     return;
 }
