@@ -26,7 +26,7 @@ int char2int(char digit)
     if (digit>96 && digit<103) { 
         return digit-87;
     }
-    return 1;
+    return -1;
 
 }
 
@@ -68,9 +68,9 @@ void int2ascii(int value, int base) {
         remains.push_back(value%base);
         value/=base;
     }
-    for (int x = remains.size()-1; x>=0; x--) {
-        int digit  = remains.at(1);
-        std::cout<<int2char(digit);
+    for (int i = remains.size()-1; i>=0; i--) {
+        int digit  = remains.at(i);
+        std::cout<<int2char(digit)<<endl;
     }
     return;
 }
