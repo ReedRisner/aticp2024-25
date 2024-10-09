@@ -14,12 +14,12 @@
 
 /** @todo Implement in field.c based on documentation contained in field.h */
 int getBit (int value, int position) {
-    return false;
+    return (value >> position) & 1; //shifts it to the right by value and then does a bitwise and with 1
 }
 
 /** @todo Implement in field.c based on documentation contained in field.h */
 int setBit (int value, int position) {
-    return value;
+    return value |= 1 << position; //sets the bit at the position to 1
 }
 
 /** @todo Implement in field.c based on documentation contained in field.h */
