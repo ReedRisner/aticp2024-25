@@ -19,25 +19,37 @@ int getBit (int value, int position) {
 
 /** @todo Implement in field.c based on documentation contained in field.h */
 int setBit (int value, int position) {
-    return value |= 1 << position; //sets the bit at the position to 1
+    int nv = value |  (1 << position); //sets the bit at the position to 1
+    return nv;
 }
 
 /** @todo Implement in field.c based on documentation contained in field.h */
 int clearBit (int value, int position) {
-    return value;
+    int nv = value & ~(1 << position); //clears the bit at the position to 0
+    return nv;
 }
 
 /** @todo Implement in field.c based on documentation contained in field.h */
 int getField (int value, int hi, int lo, int isSigned) {
-    return 0;
+    int nv = (value >> lo) & ((1 << (hi - lo + 1)) - 1); // shifts the value and masks the bits
+    if (isSigned && (nv & (1 << (hi - lo)))) { // if signed and the sign bit is set
+        nv |= ~((1 << (hi - lo + 1)) - 1); // sign extend the result
+    }
+    return nv;
 }
 
 /** @todo Implement in field.c based on documentation contained in field.h */
 int setField (int oldValue, int hi, int lo, int newValue) {
-    return 0;
+    int mask = ((1 << (hi - lo + 1)) - 1) << lo; // create a mask for the field
+    oldValue &= ~mask; // clear the field in the old value
+    newValue = (newValue << lo); // shift the new value into position and mask it
+    return oldValue | newValue; // combine the old value with the new field value
 }
 
 /** @todo Implement in field.c based on documentation contained in field.h */
 int fieldFits (int value, int width, int isSigned) {
-    return 0;
+    int maxVal = (1 << width) - 1;
+    int minVal = isSigned ? -(1 << (width - 1)) : 0;
+    maxVal = isSigned ? (1 << (width - 1)) - 1 : maxVal;
+    return value >= minVal && value <= maxVal;
 }
