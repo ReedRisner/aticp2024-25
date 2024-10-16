@@ -48,12 +48,12 @@ int setField (int oldValue, int hi, int lo, int newValue) {
 
 /** @todo Implement in field.c based on documentation contained in field.h */
 int fieldFits (int value, int width, int isSigned) {
+    int maxVal = (1 << width) - 1; // maximum value for the given width
+    int minVal = isSigned ? -(1 << (width - 1)) : 0; // minimum value for signed or unsigned
+
     if (isSigned) {
-        int min = -(1 << (width - 1));
-        int max = (1 << (width - 1)) - 1;
-        return value >= min && value <= max;
-    } else {
-        unsigned int max = (1 << width) - 1;
-        return value >= 0 && static_cast<unsigned int>(value) <= max;
+        maxVal = (1 << (width - 1)) - 1; // maximum value for signed
     }
+
+    return value >= minVal && value <= maxVal;
 }
