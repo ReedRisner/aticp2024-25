@@ -42,14 +42,18 @@ int getField (int value, int hi, int lo, int isSigned) {
 int setField (int oldValue, int hi, int lo, int newValue) {
     int mask = ((1 << (hi - lo + 1)) - 1) << lo; // create a mask for the field
     oldValue &= ~mask; // clear the field in the old value
-    newValue = (newValue << lo); // shift the new value into position and mask it
+    newValue = (newValue << lo) & mask; // shift the new value into position and mask it
     return oldValue | newValue; // combine the old value with the new field value
 }
 
 /** @todo Implement in field.c based on documentation contained in field.h */
 int fieldFits (int value, int width, int isSigned) {
-    int maxVal = (1 << width) - 1;
-    int minVal = isSigned ? -(1 << (width - 1)) : 0;
-    maxVal = isSigned ? (1 << (width - 1)) - 1 : maxVal;
-    return value >= minVal && value <= maxVal;
+    if (isSigned) {
+        int min = -(1 << (width - 1));
+        int max = (1 << (width - 1)) - 1;
+        return value >= min && value <= max;
+    } else {
+        unsigned int max = (1 << width) - 1;
+        return value >= 0 && static_cast<unsigned int>(value) <= max;
+    }
 }
