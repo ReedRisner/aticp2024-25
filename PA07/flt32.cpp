@@ -13,17 +13,17 @@
 
 /** @todo Implement in flt32.c based on documentation contained in flt32.h */
 int flt32_get_sign (flt32 x) {
-  return 0; /* implement this */
+  return getField(x, 31, 31, 0);
 }
 
 /** @todo Implement in flt32.c based on documentation contained in flt32.h */
 int flt32_get_exp (flt32 x) {
-  return 0; /* implement this */
+  return getField(x, 30, 23, 0); 
 }
 
 /** @todo Implement in flt32.c based on documentation contained in flt32.h */
 int flt32_get_val (flt32 x) {
-  return 0;
+  return getField(x, 23, 0, 0) | (1 << 23); 
 }
 
 /** @todo Implement in flt32.c based on documentation contained in flt32.h */
