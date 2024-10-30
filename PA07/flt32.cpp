@@ -1,5 +1,7 @@
 #include "field.h"
 #include "flt32.h"
+#include <cmath>
+#include <algorithm>
 
 /** @file flt32.c
  *  @brief You will modify this file and implement nine functions
@@ -60,13 +62,44 @@ flt32 flt32_negate (flt32 x) {
   return x ^ 0x80000000;
 }
 
+
+
 /** @todo Implement in flt32.c based on documentation contained in flt32.h */
 flt32 flt32_add (flt32 x, flt32 y) {
-  return 0;
+
+int sign_x = flt32_get_sign(x);
+int exp_x = flt32_get_exp(x);
+int val_x = flt32_get_val(x);
+
+int sign_y = flt32_get_sign(y);
+int exp_y = flt32_get_exp(y);
+int val_y = flt32_get_val(y);
+
+if (exp_x < exp_y) {
+  std::swap(x, y);
+  std::swap(exp_x, exp_y);
+  std::swap(val_x, val_y);
+}
+
+int exp_diff = exp_x - exp_y;
+val_y >>= exp_diff;
+
+int result_val = val_x + val_y;
+int result_exp = exp_x;
+
+if (result_val & (1 << 24)) {
+  result_val >>= 1;
+  result_exp += 1;
+}
+
+int result_sign = sign_x;
+
+return (result_sign << 31) | (result_exp << 23) | (result_val & 0x7FFFFF);
 }
 
 /** @todo Implement in flt32.c based on documentation contained in flt32.h */
 flt32 flt32_sub (flt32 x, flt32 y) {
   return flt32_add(x, flt32_negate(y));
 }
+
 
