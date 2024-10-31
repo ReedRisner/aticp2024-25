@@ -66,7 +66,7 @@ flt32 flt32_negate (flt32 x) {
 
 /** @todo Implement in flt32.c based on documentation contained in flt32.h */
 flt32 flt32_add (flt32 x, flt32 y) {
-
+  
 int sign_x = flt32_get_sign(x);
 int exp_x = flt32_get_exp(x);
 int val_x = flt32_get_val(x);
@@ -76,25 +76,39 @@ int exp_y = flt32_get_exp(y);
 int val_y = flt32_get_val(y);
 
 if (exp_x < exp_y) {
-  std::swap(x, y);
-  std::swap(exp_x, exp_y);
-  std::swap(val_x, val_y);
+  int temp_sign = sign_x;
+  int temp_exp = exp_x;
+  int temp_val = val_x;
+  sign_x = sign_y;
+  exp_x = exp_y;
+  val_x = val_y;
+  sign_y = temp_sign;
+  exp_y = temp_exp;
+  val_y = temp_val;
 }
 
 int exp_diff = exp_x - exp_y;
 val_y >>= exp_diff;
 
-int result_val = val_x + val_y;
-int result_exp = exp_x;
+int result_val = val_x + (sign_x == sign_y ? val_y : -val_y);
+int result_sign = result_val < 0 ? 1 : 0;
+result_val = std::abs(result_val);
 
+int result_exp = exp_x;
 if (result_val & (1 << 24)) {
   result_val >>= 1;
-  result_exp += 1;
+  result_exp++;
+} else {
+  int left_most = flt32_left_most_1(result_val);
+  if (left_most != -1) {
+    int shift = 23 - left_most;
+    result_val <<= shift;
+    result_exp -= shift;
+  }
 }
 
-int result_sign = sign_x;
-
-return (result_sign << 31) | (result_exp << 23) | (result_val & 0x7FFFFF);
+result_val &= ~(1 << 23);
+return (result_sign << 31) | (result_exp << 23) | result_val;
 }
 
 /** @todo Implement in flt32.c based on documentation contained in flt32.h */
