@@ -101,5 +101,3 @@ return (result_sign << 31) | (result_exp << 23) | (result_val & 0x7FFFFF);
 flt32 flt32_sub (flt32 x, flt32 y) {
   return flt32_add(x, flt32_negate(y));
 }
-
-
