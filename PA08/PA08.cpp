@@ -7,10 +7,10 @@
 
 using namespace std;
 
-// Function to check if a Java file has balanced parentheses, brackets, and braces
+
 bool isValidJavaFile(const string& filename) {
     ifstream file(filename); // Open the file
-    if (!file.is_open()) { // Check if the file opened successfully
+    if (!file.is_open()) { // Check if the file opened 
         cerr << "Error: Could not open file." << endl;
         return false;
     }
@@ -19,7 +19,7 @@ bool isValidJavaFile(const string& filename) {
     char ch;
     bool inSingleLineComment = false; // Flag for single-line comments
     bool inMultiLineComment = false; // Flag for multi-line comments
-    bool inString = false; // Flag for string literals
+
 
     // Read the file character by character
     while (file.get(ch)) {
@@ -32,17 +32,8 @@ bool isValidJavaFile(const string& filename) {
 
         if (inMultiLineComment) { // If inside a multi-line comment
             if (ch == '*' && file.peek() == '/') { // End of multi-line comment
-                file.get(ch); // Consume '/'
+                file.get(ch); 
                 inMultiLineComment = false;
-            }
-            continue;
-        }
-
-        if (inString) { // If inside a string literal
-            if (ch == '\\') { // Escape sequence
-                file.get(ch); // Consume escaped character
-            } else if (ch == '"') { // End of string literal
-                inString = false;
             }
             continue;
         }
@@ -50,19 +41,16 @@ bool isValidJavaFile(const string& filename) {
         if (ch == '/') { // Possible start of a comment
             if (file.peek() == '/') { // Start of single-line comment
                 inSingleLineComment = true;
-                file.get(ch); // Consume second '/'
+                file.get(ch); 
                 continue;
             } else if (file.peek() == '*') { // Start of multi-line comment
                 inMultiLineComment = true;
-                file.get(ch); // Consume '*'
+                file.get(ch); 
                 continue;
             }
         }
 
-        if (ch == '"') { // Start of string literal
-            inString = true;
-            continue;
-        }
+        
 
         // Push opening characters onto the stack
         if (ch == '(' || ch == '{' || ch == '[') {
