@@ -7,30 +7,24 @@ using namespace std;
 //Just print the answer. Each on a new line
 void fizzBuzz(int n) {
     for (int i = 1; i <= n; i++) {
-        cout << i;
-        if (i % 3 == 0 && i % 5 ==0) {
-            cout << "FizzBuzz";
+        if (i % 3 == 0 && i % 5 == 0) {
+            cout << "FizzBuzz" << endl;
         }
-        else if (i % 3 ==0) {
-            cout << "Fizz";
+        else if (i % 3 == 0) {
+            cout << "Fizz" << endl;
         }
         else if (i % 5 == 0) {
-            cout << "Buzz";
+            cout << "Buzz" << endl;
         }
         else {
-            cout << i;
+            cout << i << endl;
         }
-        }
-
- return;
+    }
+    return;
 
     }
 
-
-   
-
-
 int main() {
-    fizzBuzz(5); //Example function call
+    fizzBuzz(15); //Example function call
     return 0;
 }
