@@ -1,6 +1,7 @@
 #include "LinkedList.h"
 #include <iostream>
 
+using namespace std;
 
 /**
  * LinkedList
@@ -45,7 +46,19 @@ LinkedList::LinkedList() : head(nullptr) {}
  *     list.append(5);  // Adds a new node with data 5 at the end of the list
  */
 void LinkedList::append(int data) {
-    // TODO: Implement append method
+    if (head = nullptr) {
+        head = new Node(data);
+    }
+    else {
+        Node* current = head;
+        while (current->next != nullptr) {
+            current = current->next;
+        }
+        current->next = new Node(data);
+    }
+
+
+
 }
 
 /**
@@ -74,7 +87,12 @@ void LinkedList::append(int data) {
  *     void: This function does not return any value.
  */
 void LinkedList::display() const {
-    // TODO: Implement display method
+    Node* current = head;
+    while (current != nullptr) {
+        cout << current->data << " -> ";
+        current = current->next;
+    }
+    cout << "NULL" << endl;
 }
 
 /**
@@ -96,7 +114,14 @@ void LinkedList::display() const {
  *     void: This function does not return any value.
  */
 void LinkedList::prepend(int data) {
-    // TODO: Implement prepend method
+    if (head == nullptr) {
+        head = new Node(data); 
+    }
+    else {
+        Node* newHead = new Node(data);
+        newHead->next = head;
+        head = newHead;
+    }
 }
 /**
  * removeHead
