@@ -46,19 +46,15 @@ LinkedList::LinkedList() : head(nullptr) {}
  *     list.append(5);  // Adds a new node with data 5 at the end of the list
  */
 void LinkedList::append(int data) {
-    if (head = nullptr) {
+    if (head == nullptr) {  
         head = new Node(data);
-    }
-    else {
+    } else {
         Node* current = head;
         while (current->next != nullptr) {
             current = current->next;
         }
         current->next = new Node(data);
     }
-
-
-
 }
 
 /**
@@ -185,10 +181,36 @@ bool LinkedList::removeHead(){
  *     multiple nodes with the same data, only the first one encountered is removed.
  */
 bool LinkedList::remove(int data) {
-    // TODO: Implement remove method
-    return false; // Placeholder return
-}
+    // Check if the list is empty
+    if (head == nullptr) {
+        return false;
+    }
 
+    // Check if the head node contains the data to be removed
+    if (head->data == data) {
+        Node* temp = head;
+        head = head->next;
+        delete temp;
+        return true;
+    }
+
+    // Traverse the list to find the node with the specified data
+    Node* current = head;
+    while (current->next != nullptr && current->next->data != data) {
+        current = current->next;
+    }
+
+    // If the node was found, remove it
+    if (current->next != nullptr) {
+        Node* temp = current->next;
+        current->next = current->next->next;
+        delete temp;
+        return true;
+    }
+
+    // Data not found in the list
+    return false;
+}
 /**
  * insertAfter
  * Inserts a new node with the specified data immediately after the first occurrence of a node with specified 'after' data.
@@ -212,7 +234,15 @@ bool LinkedList::remove(int data) {
  *     void: This function does not return any value.
  */
 void LinkedList::insertAfter(int after, int data) {
-    // TODO: Implement insertAfter method
+    Node* current = head;
+    while (current != nullptr && current->data != after) {
+        current = current->next;
+    }
+    if (current != nullptr) {
+        Node* newNode = new Node(data);
+        newNode->next = current->next;
+        current->next = newNode;
+    }
 }
 
 /**
@@ -237,7 +267,13 @@ void LinkedList::insertAfter(int after, int data) {
  *     this destructor is automatically called to clean up the resources.
  */
 LinkedList::~LinkedList() {
-    // TODO: Implement the destructor to free memory
+    Node* current = head;
+    while (current != nullptr) {
+        Node* temp = current;
+        current = current->next;
+        delete temp;
+    }
+    head = nullptr;
 }
 
 /**
@@ -265,5 +301,21 @@ LinkedList::~LinkedList() {
  *     void: This function does not return any value.
  */
 void LinkedList::reverse() {
-    // TODO: Implement reverse method
+    // If the list is empty or has only one element, no need to reverse
+    if (head == nullptr || head->next == nullptr) {
+        return;
+    }
+
+    Node* prev = nullptr;
+    Node* current = head;
+    Node* next = nullptr;
+
+    while (current != nullptr) {
+        next = current->next;  // Store the next node
+        current->next = prev;  // Reverse the current node's pointer
+        prev = current;        // Move pointers one position ahead
+        current = next;
+    }
+
+    head = prev;  // Update the head to the new first node
 }
