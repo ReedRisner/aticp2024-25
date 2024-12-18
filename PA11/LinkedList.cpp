@@ -135,17 +135,15 @@ void LinkedList::prepend(int data) {
  *           Returns false if the list is empty and there is no head to remove.
  */
 bool LinkedList::removeHead(){
-    // If the list is empty, there is no head to remove
     if (head == nullptr) {
         return false;
     }
 
-    // If there's only one node in the list
+    
     if (head->next == nullptr) {
         delete head;
         head = nullptr;
     } else {
-        // More than one node in the list
         Node* temp = head;
         head = head->next;
         delete temp;
@@ -181,12 +179,11 @@ bool LinkedList::removeHead(){
  *     multiple nodes with the same data, only the first one encountered is removed.
  */
 bool LinkedList::remove(int data) {
-    // Check if the list is empty
     if (head == nullptr) {
         return false;
     }
 
-    // Check if the head node contains the data to be removed
+   
     if (head->data == data) {
         Node* temp = head;
         head = head->next;
@@ -194,13 +191,13 @@ bool LinkedList::remove(int data) {
         return true;
     }
 
-    // Traverse the list to find the node with the specified data
+    
     Node* current = head;
     while (current->next != nullptr && current->next->data != data) {
         current = current->next;
     }
 
-    // If the node was found, remove it
+   
     if (current->next != nullptr) {
         Node* temp = current->next;
         current->next = current->next->next;
@@ -208,7 +205,7 @@ bool LinkedList::remove(int data) {
         return true;
     }
 
-    // Data not found in the list
+    
     return false;
 }
 /**
@@ -301,7 +298,7 @@ LinkedList::~LinkedList() {
  *     void: This function does not return any value.
  */
 void LinkedList::reverse() {
-    // If the list is empty or has only one element, no need to reverse
+    
     if (head == nullptr || head->next == nullptr) {
         return;
     }
@@ -311,11 +308,11 @@ void LinkedList::reverse() {
     Node* next = nullptr;
 
     while (current != nullptr) {
-        next = current->next;  // Store the next node
-        current->next = prev;  // Reverse the current node's pointer
-        prev = current;        // Move pointers one position ahead
+        next = current->next;  
+        current->next = prev;  
+        prev = current;        
         current = next;
     }
 
-    head = prev;  // Update the head to the new first node
+    head = prev;  
 }
